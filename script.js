@@ -1,14 +1,8 @@
-let colors = [
-	"rgb(234, 132, 235)",
-	"rgb(45, 111, 8)",
-	"rgb(1, 234, 60)",
-	"rgb(150, 26, 187)",
-	"rgb(60, 26, 22)",
-	"rgb(34, 50, 1)"
-]
+let colors = generateColors(6)
 
 // assign selected color and display it
-let selectedColor = colors[3]
+let selectedColor = pickColor()
+console.log(selectedColor)
 selectedColorSpan = document.querySelector(".currColor")
 selectedColorSpan.textContent = selectedColor
 
@@ -45,6 +39,35 @@ function changeColors(color) {
 	for(let i = 0; i < squares.length; i++) {
 	 	squares[i].style.backgroundColor = color;
 	}
+
+	let theH1 = document.querySelector("h1")
+	theH1.style.backgroundColor = color
 	
 }
 
+function generateColors(number) {
+
+	let outputObject = []
+
+	for(let i = 0; i < number; i++) {
+		outputObject.push("rgb(" + 
+			Math.floor(Math.random() * 256) + ", " +
+			Math.floor(Math.random() * 256) + ", " +
+			Math.floor(Math.random() * 256) + ")"
+		)
+
+	}
+
+	return outputObject
+}
+
+function pickColor() {
+	return colors[Math.floor(Math.random() * colors.length)]
+}
+
+
+// assign click logic to new colors
+let resetLink = document.querySelector(".restart a") 
+resetLink.addEventListener("click", function() {
+	console.log("clicked")
+})
