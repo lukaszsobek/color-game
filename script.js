@@ -20,8 +20,12 @@ for(let i = 0; i < squares.length; i++) {
 	squares[i].style.backgroundColor = colors[i]
 
 	// add click logic to squares
-	squares[i].addEventListener("click", () => {
-		console.log("click")
+	squares[i].addEventListener("click", function() {
+		if(this.style.backgroundColor == selectedColor) {
+			console.log("yes")
+		} else {
+			console.log("nope")
+		}
 	})
 }
 
