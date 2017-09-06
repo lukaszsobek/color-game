@@ -69,5 +69,10 @@ function pickColor() {
 // assign click logic to new colors
 let resetLink = document.querySelector(".restart a") 
 resetLink.addEventListener("click", function() {
-	console.log("clicked")
+	colors = generateColors(6)
+	selectedColor = pickColor()
+	selectedColorSpan.textContent = selectedColor
+	for(let i = 0; i< squares.length; i++) {
+		squares[i].style.backgroundColor = colors[i]
+	}
 })
