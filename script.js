@@ -8,7 +8,7 @@ let headerH1 = document.querySelector("h1")
 let selectedColorSpan = document.querySelector(".currColor")
 let messageDiv = document.querySelector(".message")
 let restartDiv = document.querySelector(".restart")
-let squares = document.getElementsByClassName("square");
+let squares = document.querySelectorAll(".square");
 
 
 // set up game
@@ -21,7 +21,7 @@ for(let i = 0; i < squares.length; i++) {
 
 	squares[i].style.backgroundColor = colors[i]
 
-	squares[i].addEventListener("click", () => {
+	squares[i].addEventListener("click", function() {
 
 		if(this.style.backgroundColor == selectedColor) {
 		// if clicked on target tile
@@ -34,7 +34,7 @@ for(let i = 0; i < squares.length; i++) {
 		// if not clicked on target tile
 
 			this.style.backgroundColor = "#333"
-			messageSpan.textContent = "Not this tile!"
+			messageDiv.textContent = "Not this tile!"
 		}
 
 	}) // end clickListener
@@ -49,9 +49,7 @@ function changeColors(color) {
 	}
 
 	headerH1.style.backgroundColor = color
-	
 }
-
 
 
 function generateColors(number) {
