@@ -1,55 +1,67 @@
-let colors = generateColors(6)
-
-// assign selected color and display it
-let selectedColor = pickColor()
-console.log(selectedColor)
-selectedColorSpan = document.querySelector(".currColor")
-selectedColorSpan.textContent = selectedColor
+// declare vars
+let colors = []
+let selectedColor = ""
 
 
-// assign colors to squares
+// get needed selectors
+let headerH1 = document.querySelector("h1")
+let selectedColorSpan = document.querySelector(".currColor")
+let messageDiv = document.querySelector(".message")
+let restartDiv = document.querySelector(".restart")
 let squares = document.getElementsByClassName("square");
 
 
-// set up message var
-let messageSpan = document.querySelector(".message")
+// set up game
+resetHeader()
+setBoard()
 
 
+// assign colors to squares and add click listeners
 for(let i = 0; i < squares.length; i++) {
+
 	squares[i].style.backgroundColor = colors[i]
 
-	// add click logic to squares
-	squares[i].addEventListener("click", function() {
+	squares[i].addEventListener("click", () => {
+
 		if(this.style.backgroundColor == selectedColor) {
+		// if clicked on target tile
 			
-			messageSpan.textContent = "Correct!"
 			changeColors(selectedColor)
+			messageDiv.textContent = "Correct!"
+			restartDiv.textContent = "Play again!"
 
 		} else {
+		// if not clicked on target tile
 
 			this.style.backgroundColor = "#333"
-			messageSpan.textContent = "Try again!"
+			messageSpan.textContent = "Not this tile!"
 		}
 
+	}) // end clickListener
+} // end for
 
-	})
-}
 
 function changeColors(color) {
+// changes colors of all tiles to one color
+
 	for(let i = 0; i < squares.length; i++) {
 	 	squares[i].style.backgroundColor = color;
 	}
 
-	let theH1 = document.querySelector("h1")
-	theH1.style.backgroundColor = color
+	headerH1.style.backgroundColor = color
 	
 }
 
+
+
 function generateColors(number) {
+// returns an array with $number items
+// each item contains an rgb color value
 
 	let outputObject = []
 
 	for(let i = 0; i < number; i++) {
+
 		outputObject.push("rgb(" + 
 			Math.floor(Math.random() * 256) + ", " +
 			Math.floor(Math.random() * 256) + ", " +
@@ -61,18 +73,40 @@ function generateColors(number) {
 	return outputObject
 }
 
+
 function pickColor() {
-	return colors[Math.floor(Math.random() * colors.length)]
+// returns a random item from the colors array
+	return colors[Math.floor(Math.random() * colors.length)]	
 }
 
 
-// assign click logic to new colors
-let resetLink = document.querySelector(".restart a") 
-resetLink.addEventListener("click", function() {
+function setBoard() {
+// prepares colors and target tile for game
 	colors = generateColors(6)
 	selectedColor = pickColor()
 	selectedColorSpan.textContent = selectedColor
+}
+
+
+function resetHeader() {
+// resets header color and text
+	headerH1.style.backgroundColor = "#333"
+	restartDiv.textContent = "Get new colors"
+	messageDiv.textContent = "Click a tile to start"
+}
+
+
+// assign click logic get new colors
+restartDiv.addEventListener("click", () => {
+
+	// prepare game
+	resetHeader()
+	setBoard()
+
+	// reassign colors
 	for(let i = 0; i< squares.length; i++) {
 		squares[i].style.backgroundColor = colors[i]
 	}
+
+
 })
